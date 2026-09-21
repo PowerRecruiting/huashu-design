@@ -1,0 +1,37 @@
+/* ==========================================================================
+   Growth Investment Group — Corporate Design Tokens
+   Quelle: growth-investment-group.de
+     · /wp-content/uploads/porto_styles/theme_css_vars.css   (Theme-Globals)
+     · /wp-content/uploads/elementor/css/post-1844.css       (Elementor-Kit)
+     · Logo-Messung Growth-Investment-Group-Logo-600-300-Orjinal.jpg
+   Einzige Wahrheitsquelle für Farbe und Typografie. Nichts hier hart kodieren.
+   ========================================================================== */
+
+:root {
+  /* --- Markenfarben ----------------------------------------------------- */
+  --gig-petrol:        #0F5969;  /* Primär. Logo, Rubriken, Zahlen, Linien   */
+  --gig-petrol-dark:   #09343D;  /* primary-dark-10, für Tiefen             */
+  --gig-petrol-mid:    #3C8698;  /* abgeleitet, Diagramm-Mittelton          */
+  --gig-petrol-soft:   #C3D4DA;  /* abgeleitet, Diagramm-Hellton            */
+  --gig-band:          #EAEFF3;  /* Tertiär. Kopf-/Fußband, Flächen          */
+  --gig-band-deep:     #CAD7E1;  /* tertiary-dark-10, Rahmen/Trennung        */
+
+  /* Gold #EEAB26 ist der deklarierte Sekundärton des Elementor-Kits.
+     Für dieses Exposé bewusst NICHT im Einsatz (Entscheidung: nur Petrol). */
+
+  /* --- Schrift ----------------------------------------------------------- */
+  --gig-ink:           #222529;  /* Headline-Schwarz des Themes             */
+  --gig-text:          #3F4448;  /* Fließtext, etwas offener als #777       */
+  --gig-muted:         #7A8388;  /* Labels, Fußnoten                        */
+  --gig-rule:          #D8DFE4;  /* Haarlinien in Tabellen                  */
+  --gig-paper:         #FFFFFF;
+
+  --gig-font:          "poppins", "Poppins", "Helvetica Neue", Arial, sans-serif;
+
+  /* --- Seitenraster A4 @96dpi (794 x 1123 px) ---------------------------- */
+  --pg-w:      794px;
+  --pg-h:     1123px;
+  --pg-margin:  76px;   /* Satzspiegel links/rechts                          */
+  --pg-indent: 112px;   /* Logo/Kolumnentitel, hinter dem 45°-Anschnitt      */
+  --band-cut:   66px;   /* Kathete des 45°-Anschnitts = Bandhöhe             */
+}

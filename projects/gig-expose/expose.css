@@ -1,0 +1,280 @@
+/* ==========================================================================
+   Projektexposé — A4-Master
+   Jede Seite ist ein .slide mit fixem Canvas (794 x 1123 px = A4 @ 96dpi).
+   Absolute Positionierung nur für Seitenmöbel (Bänder, Logo, Kolumnentitel),
+   der Inhalt läuft im normalen Fluss innerhalb von .pg-body.
+   ========================================================================== */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #55616B;
+  font-family: var(--gig-font);
+  color: var(--gig-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  position: relative;
+  width: var(--pg-w);
+  height: var(--pg-h);
+  overflow: hidden;
+  background: var(--gig-paper);
+  margin: 0 auto 28px;
+}
+
+/* --- Kopf- und Fußband, 45°-Anschnitt links ------------------------------ */
+/* Inline-SVG statt clip-path: robuster beim Import nach Adobe Express.      */
+
+.band { position: absolute; left: 0; width: var(--pg-w); }
+.band svg { display: block; }
+.band--head { top: 40px;   height: 66px; }
+.band--foot { top: 1052px; height: 40px; }
+
+.logo {
+  position: absolute;
+  top: 56px;
+  left: var(--pg-indent);
+  height: 34px;
+}
+
+.runhead {
+  position: absolute;
+  top: 1052px;
+  left: var(--pg-indent);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  color: var(--gig-petrol);
+}
+.runhead .sep { color: var(--gig-band-deep); margin: 0 7px; }
+
+.folio {
+  position: absolute;
+  top: 1052px;
+  right: var(--pg-margin);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--gig-petrol);
+}
+
+/* --- Satzspiegel --------------------------------------------------------- */
+
+.pg-body {
+  position: absolute;
+  top: 158px;
+  left: var(--pg-margin);
+  width: calc(var(--pg-w) - 2 * var(--pg-margin));
+  bottom: 110px;
+}
+
+/* --- Typografie ---------------------------------------------------------- */
+
+.h-rubrik {                       /* Seitenrubrik, z. B. „Key Facts"         */
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  color: var(--gig-petrol);
+  margin-bottom: 7px;
+}
+.h-rubrik + .rule { margin-bottom: 20px; }
+
+.rule {                           /* kurze Petrol-Linie unter der Rubrik     */
+  width: 44px;
+  height: 2px;
+  background: var(--gig-petrol);
+}
+
+.h-sub {                          /* Zwischentitel im Fließtext              */
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--gig-petrol);
+  margin-bottom: 3px;
+}
+
+p, li {
+  font-size: 11.5px;
+  line-height: 1.62;
+  color: var(--gig-text);
+}
+p + p, .block + .block { margin-top: 13px; }
+
+.lead { font-size: 12.5px; line-height: 1.6; }
+
+ul.dashed { list-style: none; }
+ul.dashed li { position: relative; padding-left: 15px; margin-bottom: 5px; }
+ul.dashed li::before {
+  content: "";
+  position: absolute; left: 0; top: 8px;
+  width: 7px; height: 1.5px;
+  background: var(--gig-petrol);
+}
+
+.stack-lg > * + * { margin-top: 26px; }
+.stack-md > * + * { margin-top: 17px; }
+
+/* --- KPI-Kacheln („Das Investment in Zahlen") ---------------------------- */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--gig-rule);
+  border: 1px solid var(--gig-rule);
+}
+.kpi {
+  background: var(--gig-paper);
+  padding: 17px 14px 15px;
+  text-align: center;
+}
+.kpi__label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--gig-muted);
+}
+.kpi__note { font-size: 8.5px; color: var(--gig-muted); margin-top: 2px; }
+.kpi__value {
+  font-size: 23px;
+  font-weight: 600;
+  color: var(--gig-petrol);
+  margin-top: 7px;
+  line-height: 1.1;
+}
+
+/* --- Label/Wert-Tabelle („Key Facts", „Projekt auf einen Blick") --------- */
+
+.facts { width: 100%; border-collapse: collapse; }
+.facts td {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--gig-rule);
+  font-size: 11.5px;
+  line-height: 1.5;
+  vertical-align: top;
+}
+.facts tr:last-child td { border-bottom: 0; }
+.facts .k { font-weight: 600; color: var(--gig-petrol); width: 47%; padding-right: 22px; }
+.facts .v { text-align: right; color: var(--gig-ink); }
+.facts .v small { display: block; font-size: 10.5px; color: var(--gig-text); line-height: 1.5; }
+
+/* --- Chancen / Risiken --------------------------------------------------- */
+
+.cr { width: 100%; border-collapse: collapse; }
+.cr th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gig-paper);
+  background: var(--gig-petrol);
+  padding: 8px 14px;
+  width: 50%;
+}
+.cr th + th { border-left: 1px solid var(--gig-paper); }
+.cr td {
+  padding: 11px 14px 13px;
+  font-size: 10.5px;
+  line-height: 1.55;
+  vertical-align: top;
+  border-bottom: 1px solid var(--gig-rule);
+  width: 50%;
+}
+.cr td + td { border-left: 1px solid var(--gig-rule); }
+.cr tr.topic td {
+  background: var(--gig-band);
+  font-weight: 600;
+  color: var(--gig-petrol);
+  font-size: 11px;
+  padding: 6px 14px;
+}
+
+/* --- Strukturdiagramm ---------------------------------------------------- */
+
+.node {
+  background: var(--gig-band);
+  border-left: 3px solid var(--gig-petrol);
+  padding: 12px 16px;
+  text-align: center;
+}
+.node--plain { background: var(--gig-band); border-left: 3px solid var(--gig-band-deep); }
+.node__role  { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gig-muted); }
+.node__name  { font-size: 12.5px; font-weight: 600; color: var(--gig-petrol); margin: 3px 0 2px; }
+.node__meta  { font-size: 9.5px; color: var(--gig-text); }
+
+.connector { display: flex; justify-content: center; align-items: center; height: 26px; }
+.connector svg { display: block; }
+
+/* --- Bildflächen --------------------------------------------------------- */
+
+.figure { width: 100%; overflow: hidden; background: var(--gig-band); }
+.figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.placeholder {                    /* sichtbarer Bild-Platzhalter             */
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gig-band);
+  border: 1px dashed var(--gig-band-deep);
+  color: var(--gig-muted);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 0 40px;
+}
+
+/* --- Fußnoten ------------------------------------------------------------ */
+
+.footnotes {
+  position: absolute;
+  left: var(--pg-margin);
+  bottom: 0;
+  width: calc(var(--pg-w) - 2 * var(--pg-margin));
+  padding-top: 8px;
+  border-top: 1px solid var(--gig-rule);
+}
+.footnotes p { font-size: 7.5px; line-height: 1.45; color: var(--gig-muted); }
+
+/* --- Cover / Rückseite --------------------------------------------------- */
+
+.cover-hero { position: absolute; top: 130px; left: 0; width: var(--pg-w); height: 880px; }
+.cover-scrim {
+  position: absolute; top: 130px; left: 0;
+  width: var(--pg-w); height: 420px;
+  background: linear-gradient(180deg,
+    rgba(9, 52, 61, 0.62) 0%,
+    rgba(9, 52, 61, 0.34) 48%,
+    rgba(9, 52, 61, 0) 100%);
+}
+
+.cover-title {
+  position: absolute;
+  top: 178px;
+  left: var(--pg-indent);
+  color: var(--gig-paper);
+  text-shadow: 0 1px 14px rgba(9, 52, 61, 0.45);
+}
+.cover-title__eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.22em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.cover-title__name { font-size: 44px; font-weight: 300; line-height: 1.08; }
+.cover-title__name b { font-weight: 600; }
+
+.contact-band { position: absolute; left: 0; bottom: 0; width: var(--pg-w); height: 176px; }
+.contact-inner {
+  position: absolute; left: var(--pg-indent); bottom: 42px;
+  font-size: 10.5px; line-height: 1.65; color: var(--gig-petrol);
+}
+.contact-inner .name { font-weight: 600; font-size: 11.5px; }
+.contact-inner .line { margin-top: 9px; }
+.contact-inner .line b { font-weight: 600; margin-right: 5px; }
+.contact-inner .dot { color: var(--gig-band-deep); margin: 0 9px; }
+
+/* --- Bildschirmhilfe (wird beim Export nicht mitgenommen) ---------------- */
+@media print {
+  body { background: #fff; }
+  .slide { margin: 0; page-break-after: always; }
+}
