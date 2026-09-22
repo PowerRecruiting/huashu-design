@@ -1,45 +1,61 @@
-# Projektexposé — Growth Investment Group
+# Frankfurt Airport Hotel HAT 3 — Projektexposé
 
-A4-Exposé-Vorlage im Corporate Design der Growth Investment Group.
-Struktur nach dem Vorbild eines 11-seitigen Immobilien-Projektexposés,
-Gestaltung vollständig auf das GIG-CD umgestellt.
+10-seitiges A4-Exposé im Corporate Design der Growth Investment Group.
+Stand: Entwurf V1, 22.09.2026. **Nicht zur Weitergabe an Anleger.**
 
 ## Dateien
 
 | Datei | Zweck |
 |---|---|
-| `brand.css` | Marken-Tokens (Farbe, Schrift, Raster). Einzige Wahrheitsquelle. |
+| `brand.css` | Marken-Tokens, gespiegelt aus dem GIG-Design-System. |
 | `expose.css` | A4-Master: Seitenmöbel, Typografie, Komponenten. |
-| `expose.src.html` | Arbeitsdatei — hier werden Inhalte eingesetzt. |
-| `expose.html` | Erzeugt von `build.py`; selbstenthalten, für Export/Import. |
-| `fonts.py` | Lädt die Poppins-Schnitte einmalig nach `assets/fonts/`. |
-| `build.py` | Bettet Schriften, Bilder und CSS ein → `expose.html`. |
-| `shoot.py` | Rendert jede Seite als PNG und meldet Satzspiegel-Überläufe. |
+| `expose.src.html` | Arbeitsdatei. Hier wird inhaltlich geändert. |
+| `expose.html` | Erzeugt von `build.py`; selbstenthalten, für den Export. |
+| `fonts.py` | Lädt Jost und Lato nach `assets/fonts/`. |
+| `build.py` | Bettet Schriften, Bilder und CSS ein. |
+| `shoot.py` | Rendert jede Seite als PNG, meldet Satzspiegel-Überläufe. |
 
-## Ablauf
+    python3 fonts.py                       # einmalig
+    python3 build.py                       # nach jeder Änderung
+    python3 shoot.py expose.html preview   # Sichtprüfung
 
-    python3 fonts.py     # einmalig
-    python3 build.py     # nach jeder Änderung an .src.html / *.css
-    python3 shoot.py expose.html preview
+## Quelle der Gestaltung
 
-`expose.html` geht anschließend nach Adobe Express (Import) oder in den
-PDF-Druck.
+Farben, Schriften und Formmotive stammen aus dem GIG-Design-System
+(Drive-Ordner `tokens/`, `guidelines/`, `assets/`), nicht aus einer
+Bildschirmmessung der Website:
 
-## Farbquelle
+- Kern-Teal `#095666`, aus der Logodatei gemessen
+- Jost als Display-Schrift, Lato für den Fließtext
+- Teal-Banner mit 45°-Notch an der auslaufenden Kante
+- Haarlinien-Klammer um Display-Titel
+- Teal-Schleier über jeder vollflächigen Abbildung
+- Navy und Blau des Assetprofile-Decks bleiben außen vor: laut System nie
+  mit Teal im selben Layout
 
-Die Werte in `brand.css` stammen aus den globalen Theme-Variablen von
-growth-investment-group.de, nicht aus einer Bildschirmmessung:
+## Was der Adobe-Express-Import verträgt
 
-- `theme_css_vars.css` → `--porto-primary-color: #0f5969`
-- Elementor-Kit `post-1844.css` → `--e-global-color-primary/secondary/tertiary`
+Am Rückgabe-HzHTML geprüft:
 
-Nicht verwendet: `#1863DC` (Cookie-Banner-Plugin) und `#E04622`
-(Porto-Theme-Demo) — beides sind keine Markenfarben.
+| Konstrukt | Ergebnis |
+|---|---|
+| CSS `clip-path: polygon(...)` | wird zu `shape-type="path"` — Vektor, editierbar |
+| `<div>`, `<table>`, Text | native Express-Objekte |
+| `<img>` mit `data:`-URI | landet im Express-Blobstore |
+| Inline `<svg>` | **wird verworfen** |
+| `::before` / `::after` | **wird verworfen** |
 
-Gold `#EEAB26` ist der deklarierte Sekundärton der Marke, in diesem Exposé
-aber bewusst nicht eingesetzt.
+Deshalb: Strich-Aufzählungen als echte `<span class="dash">`, Kapitalstruktur
+als gestapelter Balken aus `<div>`, Pfeile als Textzeichen. Kein Inline-SVG
+im Dokument.
 
-## Platzhalter
+Jost wird beim Import durch Futura PT Web ersetzt. Das ist unkritisch — das
+Design-System nennt Futura selbst als Zielfamilie, Jost steht dort nur
+stellvertretend.
 
-Alles in `⟨spitzen Klammern⟩` ist zu ersetzen. `shoot.py` meldet, wenn Text
-nach dem Einsetzen über den Satzspiegel hinausläuft.
+## Inhaltliche Grundlage
+
+Wo das Briefing und das Dokument „HAT3 Projektexposé – Nützliche Infos je
+Kapitel" sich widersprechen, gilt der Abgleich. Offene Punkte sind im
+Dokument sichtbar als `[…]` gesetzt (Klasse `.tbd`) und müssen vor
+Drucklegung ersetzt oder gestrichen werden.

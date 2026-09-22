@@ -16,8 +16,9 @@ import re
 HERE = pathlib.Path(__file__).parent
 FONT_DIR = HERE / "assets" / "fonts"
 
-# Poppins-Schnitte, die das Layout tatsaechlich benutzt.
-WEIGHTS = [300, 400, 500, 600]
+# Schnitte, die das Layout tatsaechlich benutzt: Jost (Display), Lato (Text).
+FACES = [("Jost", w) for w in (300, 400, 500, 600)] + \
+        [("Lato", w) for w in (300, 400, 700)]
 
 
 def b64(path: pathlib.Path) -> str:
@@ -26,14 +27,14 @@ def b64(path: pathlib.Path) -> str:
 
 def font_face_block() -> str:
     faces = []
-    for w in WEIGHTS:
-        f = FONT_DIR / f"poppins-{w}.woff2"
+    for fam, w in FACES:
+        f = FONT_DIR / f"{fam.lower()}-{w}.woff2"
         if not f.exists():
             raise SystemExit(f"Fehlt: {f} — bitte zuerst 'python3 fonts.py' ausfuehren.")
         faces.append(
-            "@font-face{font-family:'Poppins';font-style:normal;font-weight:%d;"
+            "@font-face{font-family:'%s';font-style:normal;font-weight:%d;"
             "font-display:block;src:url(data:font/woff2;base64,%s) format('woff2')}"
-            % (w, b64(f))
+            % (fam, w, b64(f))
         )
     return "\n".join(faces)
 

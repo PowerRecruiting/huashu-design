@@ -1,37 +1,73 @@
 /* ==========================================================================
-   Growth Investment Group — Corporate Design Tokens
-   Quelle: growth-investment-group.de
-     · /wp-content/uploads/porto_styles/theme_css_vars.css   (Theme-Globals)
-     · /wp-content/uploads/elementor/css/post-1844.css       (Elementor-Kit)
-     · Logo-Messung Growth-Investment-Group-Logo-600-300-Orjinal.jpg
-   Einzige Wahrheitsquelle für Farbe und Typografie. Nichts hier hart kodieren.
+   Growth Investment Group — Marken-Tokens
+   Übernommen aus dem GIG-Design-System (Drive: tokens/colors.css,
+   typography.css, spacing.css, base.css). Nicht hier ändern, sondern dort —
+   diese Datei spiegelt das System, sie erfindet es nicht.
    ========================================================================== */
 
 :root {
-  /* --- Markenfarben ----------------------------------------------------- */
-  --gig-petrol:        #0F5969;  /* Primär. Logo, Rubriken, Zahlen, Linien   */
-  --gig-petrol-dark:   #09343D;  /* primary-dark-10, für Tiefen             */
-  --gig-petrol-mid:    #3C8698;  /* abgeleitet, Diagramm-Mittelton          */
-  --gig-petrol-soft:   #C3D4DA;  /* abgeleitet, Diagramm-Hellton            */
-  --gig-band:          #EAEFF3;  /* Tertiär. Kopf-/Fußband, Flächen          */
-  --gig-band-deep:     #CAD7E1;  /* tertiary-dark-10, Rahmen/Trennung        */
+  /* --- Teal-Rampe. Kernton exakt aus der Logodatei gemessen. ------------- */
+  --gig-teal-900: #052E38;
+  --gig-teal-800: #073F4C;
+  --gig-teal-700: #095666;   /* KERN-MARKENTON */
+  --gig-teal-600: #0E6577;
+  --gig-teal-500: #17798C;
+  --gig-teal-200: #BCD3D8;
+  --gig-teal-100: #DCE9EC;
+  --gig-teal-050: #F0F5F6;
 
-  /* Gold #EEAB26 ist der deklarierte Sekundärton des Elementor-Kits.
-     Für dieses Exposé bewusst NICHT im Einsatz (Entscheidung: nur Petrol). */
+  /* --- Neutrale ---------------------------------------------------------- */
+  --gig-ink:       #1A1A1A;
+  --gig-ink-soft:  #3D4148;
+  --gig-gray-500:  #8A8F98;
+  --gig-gray-300:  #C9CCD1;
+  --gig-gray-200:  #D7DADE;
+  --gig-gray-100:  #F2F2F2;
+  --gig-white:     #FFFFFF;
+
+  /* Navy/Blau des Assetprofile-Decks wird hier bewusst nicht geladen:
+     laut Design-System nie mit Teal im selben Layout mischen. */
+
+  /* --- Semantische Aliase ------------------------------------------------ */
+  --brand:            var(--gig-teal-700);
+  --brand-strong:     var(--gig-teal-800);
+  --brand-tint:       var(--gig-teal-100);
+  --text-heading:     var(--gig-ink);
+  --text-body:        var(--gig-ink-soft);
+  --text-muted:       var(--gig-gray-500);
+  --text-on-brand:    var(--gig-white);
+  --surface-page:     var(--gig-white);
+  --surface-data:     var(--gig-gray-100);
+  --surface-brand:    var(--gig-teal-700);
+  --border-hairline:  var(--gig-gray-200);
+  --border-rule:      var(--gig-teal-700);
+
+  /* Jede vollflächige Abbildung trägt einen Teal-Schleier. */
+  --wash-brand:      rgba(9, 86, 102, 0.72);
+  --wash-brand-soft: rgba(9, 86, 102, 0.45);
+  --wash-deep:       rgba(5, 46, 56, 0.85);
 
   /* --- Schrift ----------------------------------------------------------- */
-  --gig-ink:           #222529;  /* Headline-Schwarz des Themes             */
-  --gig-text:          #3F4448;  /* Fließtext, etwas offener als #777       */
-  --gig-muted:         #7A8388;  /* Labels, Fußnoten                        */
-  --gig-rule:          #D8DFE4;  /* Haarlinien in Tabellen                  */
-  --gig-paper:         #FFFFFF;
+  --font-display: 'Jost', 'Century Gothic', 'Futura', system-ui, sans-serif;
+  --font-body:    'Lato', 'Segoe UI', system-ui, sans-serif;
 
-  --gig-font:          "poppins", "Poppins", "Helvetica Neue", Arial, sans-serif;
+  --fw-light: 300;  --fw-regular: 400;  --fw-medium: 500;
+  --fw-semibold: 600;  --fw-bold: 700;
 
-  /* --- Seitenraster A4 @96dpi (794 x 1123 px) ---------------------------- */
-  --pg-w:      794px;
-  --pg-h:     1123px;
-  --pg-margin:  76px;   /* Satzspiegel links/rechts                          */
-  --pg-indent: 112px;   /* Logo/Kolumnentitel, hinter dem 45°-Anschnitt      */
-  --band-cut:   66px;   /* Kathete des 45°-Anschnitts = Bandhöhe             */
+  --lh-tight: 1.08;  --lh-heading: 1.2;  --lh-body: 1.6;
+
+  /* Versal-Auszeichnung ist in dieser Marke immer weit gesperrt. */
+  --tr-wordmark:  0.34em;
+  --tr-caps-wide: 0.16em;
+  --tr-caps:      0.055em;
+
+  /* --- A4-Geometrie (794 × 1123 px = A4 @ 96 dpi) ------------------------ */
+  /* Werte des Systems sind für das 1280er Artboard notiert und hier mit
+     Faktor 0,62 auf A4 heruntergerechnet.                                   */
+  --pg-w:         794px;
+  --pg-h:        1123px;
+  --pg-margin:     62px;
+  --banner-h:      48px;   /* System 78px  */
+  --banner-notch:  26px;   /* System 42px  */
+  --rule-len:     124px;   /* System 200px */
 }

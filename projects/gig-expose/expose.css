@@ -1,16 +1,19 @@
 /* ==========================================================================
-   Projektexposé — A4-Master
-   Jede Seite ist ein .slide mit fixem Canvas (794 x 1123 px = A4 @ 96dpi).
-   Absolute Positionierung nur für Seitenmöbel (Bänder, Logo, Kolumnentitel),
-   der Inhalt läuft im normalen Fluss innerhalb von .pg-body.
+   Projektexposé — A4-Master im GIG-Design-System
+   Jede Seite ist ein .slide mit fixem Canvas (794 × 1123 px).
+   Motive des Systems, die hier tragen:
+     · Teal-Banner mit 45°-Notch an der auslaufenden Kante
+     · Haarlinien-Klammer ober- und unterhalb jedes Display-Titels
+     · Teal-Schleier über jeder vollflächigen Abbildung
+     · quadratische Formen; nur Fotos bekommen 2 px Radius
    ========================================================================== */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: #55616B;
-  font-family: var(--gig-font);
-  color: var(--gig-text);
+  font-family: var(--font-body);
+  color: var(--text-body);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -19,261 +22,281 @@ body {
   width: var(--pg-w);
   height: var(--pg-h);
   overflow: hidden;
-  background: var(--gig-paper);
+  background: var(--surface-page);
   margin: 0 auto 28px;
 }
 
-/* --- Kopf- und Fußband, 45°-Anschnitt links ------------------------------ */
-/* Inline-SVG statt clip-path: robuster beim Import nach Adobe Express.      */
+/* --- Seitenmöbel --------------------------------------------------------- */
 
-.band { position: absolute; left: 0; width: var(--pg-w); }
-.band svg { display: block; }
-.band--head { top: 40px;   height: 66px; }
-.band--foot { top: 1052px; height: 40px; }
+.banner {                          /* Teal-Rubrikband mit Notch rechts       */
+  position: absolute;
+  top: 54px;
+  left: 0;
+  height: var(--banner-h);
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--banner-notch) + 18px) 0 var(--pg-margin);
+  background: var(--surface-brand);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--banner-notch)) 100%, 0 100%);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--text-on-brand);
+}
+.banner .num { opacity: 0.55; margin-right: 12px; font-weight: var(--fw-regular); }
 
 .logo {
   position: absolute;
-  top: 56px;
-  left: var(--pg-indent);
-  height: 34px;
-}
-
-.runhead {
-  position: absolute;
-  top: 1052px;
-  left: var(--pg-indent);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  font-size: 9.5px;
-  letter-spacing: 0.03em;
-  color: var(--gig-petrol);
-}
-.runhead .sep { color: var(--gig-band-deep); margin: 0 7px; }
-
-.folio {
-  position: absolute;
-  top: 1052px;
+  top: 64px;
   right: var(--pg-margin);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  font-size: 9.5px;
-  font-weight: 500;
-  color: var(--gig-petrol);
+  height: 26px;
 }
 
-/* --- Satzspiegel --------------------------------------------------------- */
+.footer-rule {
+  position: absolute;
+  left: var(--pg-margin);
+  bottom: 56px;
+  width: calc(var(--pg-w) - 2 * var(--pg-margin));
+  height: 1px;
+  background: var(--border-hairline);
+}
+.runhead, .folio {
+  position: absolute;
+  bottom: 36px;
+  font-family: var(--font-display);
+  font-size: 7.5px;
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-caps-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.runhead { left: var(--pg-margin); }
+.folio   { right: var(--pg-margin); color: var(--brand); }
 
 .pg-body {
   position: absolute;
-  top: 158px;
+  top: 136px;
   left: var(--pg-margin);
   width: calc(var(--pg-w) - 2 * var(--pg-margin));
-  bottom: 110px;
+  bottom: 74px;
 }
 
 /* --- Typografie ---------------------------------------------------------- */
 
-.h-rubrik {                       /* Seitenrubrik, z. B. „Key Facts"         */
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  color: var(--gig-petrol);
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-caps-wide);
+  text-transform: uppercase;
+  color: var(--brand);
   margin-bottom: 7px;
 }
-.h-rubrik + .rule { margin-bottom: 20px; }
 
-.rule {                           /* kurze Petrol-Linie unter der Rubrik     */
-  width: 44px;
-  height: 2px;
-  background: var(--gig-petrol);
+.display-title {                   /* von Haarlinien geklammert              */
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--text-heading);
+  line-height: var(--lh-tight);
+  margin: 9px 0;
+}
+.gig-rule { width: var(--rule-len); height: 1px; background: var(--border-rule); border: 0; }
+
+h3, .h-sub {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.01em;
+  color: var(--brand);
+  margin-bottom: 4px;
 }
 
-.h-sub {                          /* Zwischentitel im Fließtext              */
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--gig-petrol);
-  margin-bottom: 3px;
-}
-
-p, li {
-  font-size: 11.5px;
-  line-height: 1.62;
-  color: var(--gig-text);
-}
-p + p, .block + .block { margin-top: 13px; }
-
-.lead { font-size: 12.5px; line-height: 1.6; }
+p, li { font-size: 11.5px; line-height: var(--lh-body); color: var(--text-body); }
+p + p { margin-top: 10px; }
+.lead { font-size: 13px; line-height: 1.62; }
+.fine { font-size: 8.5px; line-height: 1.5; color: var(--text-muted); }
 
 ul.dashed { list-style: none; }
-ul.dashed li { position: relative; padding-left: 15px; margin-bottom: 5px; }
-ul.dashed li::before {
-  content: "";
-  position: absolute; left: 0; top: 8px;
-  width: 7px; height: 1.5px;
-  background: var(--gig-petrol);
+ul.dashed li { position: relative; padding-left: 14px; margin-bottom: 6px; }
+/* Echtes Element statt ::before — Pseudo-Elemente überleben den Export nicht. */
+.dash {
+  display: block; position: absolute; left: 0; top: 8px;
+  width: 7px; height: 1px; background: var(--brand);
 }
 
-.stack-lg > * + * { margin-top: 26px; }
-.stack-md > * + * { margin-top: 17px; }
+.stack-lg > * + * { margin-top: 24px; }
+.stack-md > * + * { margin-top: 14px; }
 
-/* --- KPI-Kacheln („Das Investment in Zahlen") ---------------------------- */
+/* Offener Punkt: vor Drucklegung zu klären. Absichtlich sichtbar. */
+.tbd {
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  color: var(--brand);
+  border-bottom: 1px dotted var(--gig-teal-500);
+  white-space: nowrap;
+}
+
+/* Quellenangabe hinter einer Zahl. */
+.src { font-size: 7.5px; color: var(--text-muted); letter-spacing: 0.01em; }
+
+/* --- KPI-Kacheln --------------------------------------------------------- */
 
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  background: var(--gig-rule);
-  border: 1px solid var(--gig-rule);
+  background: var(--border-hairline);
+  border: 1px solid var(--border-hairline);
 }
-.kpi {
-  background: var(--gig-paper);
-  padding: 17px 14px 15px;
-  text-align: center;
-}
+.kpi { background: var(--surface-data); padding: 15px 13px 14px; }
 .kpi__label {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--gig-muted);
+  font-family: var(--font-display);
+  font-size: 7.5px; font-weight: var(--fw-medium);
+  letter-spacing: var(--tr-caps-wide);
+  text-transform: uppercase; color: var(--text-muted);
 }
-.kpi__note { font-size: 8.5px; color: var(--gig-muted); margin-top: 2px; }
 .kpi__value {
-  font-size: 23px;
-  font-weight: 600;
-  color: var(--gig-petrol);
-  margin-top: 7px;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: var(--fw-semibold);
+  color: var(--brand); margin-top: 6px; line-height: 1.05;
 }
+.kpi__note { font-size: 8.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
 
-/* --- Label/Wert-Tabelle („Key Facts", „Projekt auf einen Blick") --------- */
+/* --- Label/Wert-Tabelle -------------------------------------------------- */
 
 .facts { width: 100%; border-collapse: collapse; }
 .facts td {
-  padding: 9px 0;
-  border-bottom: 1px solid var(--gig-rule);
-  font-size: 11.5px;
-  line-height: 1.5;
-  vertical-align: top;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: 11.5px; line-height: 1.45; vertical-align: top;
 }
 .facts tr:last-child td { border-bottom: 0; }
-.facts .k { font-weight: 600; color: var(--gig-petrol); width: 47%; padding-right: 22px; }
-.facts .v { text-align: right; color: var(--gig-ink); }
-.facts .v small { display: block; font-size: 10.5px; color: var(--gig-text); line-height: 1.5; }
+.facts .k {
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  color: var(--brand);
+  width: 42%; padding-right: 20px;
+}
+.facts .v { text-align: right; color: var(--text-heading); }
+.facts .v em { font-style: normal; color: var(--text-body); }
 
 /* --- Chancen / Risiken --------------------------------------------------- */
 
-.cr { width: 100%; border-collapse: collapse; }
+.cr { width: 100%; border-collapse: collapse; table-layout: fixed; }
 .cr th {
-  text-align: left;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--gig-paper);
-  background: var(--gig-petrol);
-  padding: 8px 14px;
-  width: 50%;
+  font-family: var(--font-display);
+  font-size: 10px; font-weight: var(--fw-semibold);
+  letter-spacing: var(--tr-caps-wide); text-transform: uppercase;
+  text-align: left; color: var(--text-on-brand);
+  background: var(--surface-brand); padding: 7px 12px; width: 50%;
 }
-.cr th + th { border-left: 1px solid var(--gig-paper); }
+.cr th + th { border-left: 1px solid var(--surface-page); }
 .cr td {
-  padding: 11px 14px 13px;
-  font-size: 10.5px;
-  line-height: 1.55;
-  vertical-align: top;
-  border-bottom: 1px solid var(--gig-rule);
-  width: 50%;
+  padding: 13px 13px 15px; font-size: 9.5px; line-height: 1.58;
+  vertical-align: top; border-bottom: 1px solid var(--border-hairline);
 }
-.cr td + td { border-left: 1px solid var(--gig-rule); }
+.cr td + td { border-left: 1px solid var(--border-hairline); }
 .cr tr.topic td {
-  background: var(--gig-band);
-  font-weight: 600;
-  color: var(--gig-petrol);
-  font-size: 11px;
-  padding: 6px 14px;
+  background: var(--brand-tint);
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold); font-size: 9.5px;
+  letter-spacing: 0.02em; color: var(--brand-strong);
+  padding: 7px 13px; border-bottom: 0;
 }
+
+/* --- Kapitalstruktur als gestapelter Balken ------------------------------ */
+
+.bar { display: flex; height: 46px; width: 100%; }
+.bar > div { display: flex; align-items: center; padding: 0 11px; }
+.bar__val {
+  font-family: var(--font-display); font-size: 13px;
+  font-weight: var(--fw-semibold); color: #fff; white-space: nowrap;
+}
+.bar-legend { display: flex; gap: 1px; margin-top: 3px; }
+.bar-legend > div { padding: 11px 11px 0 0; }
+.bar-legend__sw { width: 22px; height: 3px; margin-bottom: 7px; }
+.bar-legend__name {
+  font-family: var(--font-display); font-size: 9.5px; font-weight: var(--fw-semibold);
+  color: var(--brand-strong); line-height: 1.35;
+}
+.bar-legend__meta { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
 
 /* --- Strukturdiagramm ---------------------------------------------------- */
 
-.node {
-  background: var(--gig-band);
-  border-left: 3px solid var(--gig-petrol);
-  padding: 12px 16px;
-  text-align: center;
+.node { background: var(--surface-data); border-left: 3px solid var(--brand); padding: 9px 13px; }
+.node--brand { background: var(--surface-brand); border-left-color: var(--brand-strong); }
+.node--brand .node__name { color: var(--text-on-brand); }
+.node--brand .node__role { color: rgba(255, 255, 255, 0.7); }
+.node__role {
+  font-family: var(--font-display); font-size: 7px;
+  letter-spacing: var(--tr-caps-wide); text-transform: uppercase; color: var(--text-muted);
 }
-.node--plain { background: var(--gig-band); border-left: 3px solid var(--gig-band-deep); }
-.node__role  { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gig-muted); }
-.node__name  { font-size: 12.5px; font-weight: 600; color: var(--gig-petrol); margin: 3px 0 2px; }
-.node__meta  { font-size: 9.5px; color: var(--gig-text); }
-
-.connector { display: flex; justify-content: center; align-items: center; height: 26px; }
-.connector svg { display: block; }
-
-/* --- Bildflächen --------------------------------------------------------- */
-
-.figure { width: 100%; overflow: hidden; background: var(--gig-band); }
-.figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-.placeholder {                    /* sichtbarer Bild-Platzhalter             */
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gig-band);
-  border: 1px dashed var(--gig-band-deep);
-  color: var(--gig-muted);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  text-align: center;
-  padding: 0 40px;
+.node__name {
+  font-family: var(--font-display); font-size: 10.5px;
+  font-weight: var(--fw-semibold); color: var(--brand-strong); margin-top: 2px;
+}
+.node__meta { font-size: 8.5px; color: var(--text-body); margin-top: 1px; }
+.connector {
+  display: flex; justify-content: center; gap: 15px; height: 22px;
+  font-family: var(--font-display); font-size: 14px; color: var(--brand);
+  line-height: 1.2;
 }
 
-/* --- Fußnoten ------------------------------------------------------------ */
+/* --- Abbildungen --------------------------------------------------------- */
 
-.footnotes {
-  position: absolute;
-  left: var(--pg-margin);
-  bottom: 0;
-  width: calc(var(--pg-w) - 2 * var(--pg-margin));
-  padding-top: 8px;
-  border-top: 1px solid var(--gig-rule);
-}
-.footnotes p { font-size: 7.5px; line-height: 1.45; color: var(--gig-muted); }
-
-/* --- Cover / Rückseite --------------------------------------------------- */
-
-.cover-hero { position: absolute; top: 130px; left: 0; width: var(--pg-w); height: 880px; }
-.cover-scrim {
-  position: absolute; top: 130px; left: 0;
-  width: var(--pg-w); height: 420px;
-  background: linear-gradient(180deg,
-    rgba(9, 52, 61, 0.62) 0%,
-    rgba(9, 52, 61, 0.34) 48%,
-    rgba(9, 52, 61, 0) 100%);
+.figure { position: relative; overflow: hidden; border-radius: 2px; background: var(--gig-teal-900); }
+.figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.figure__wash { position: absolute; inset: 0; background: var(--wash-brand-soft); }
+.figure__cap {
+  position: absolute; left: 12px; bottom: 9px;
+  font-family: var(--font-display); font-size: 7.5px;
+  letter-spacing: var(--tr-caps-wide); text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
 }
 
+/* --- Titel- und Rückseite ------------------------------------------------ */
+
+.cover-img { position: absolute; inset: 0; }
+.cover-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cover-wash { position: absolute; inset: 0; background: var(--wash-brand); }
+.cover-wedge {                     /* diagonaler Keil, Hero-Motiv des Systems */
+  position: absolute; top: 0; left: 0; width: 62%; height: 100%;
+  background: var(--gig-teal-800); opacity: 0.92;
+  clip-path: polygon(0 0, 100% 0, 58% 100%, 0 100%);
+}
+.cover-inner { position: absolute; left: var(--pg-margin); top: 300px; width: 400px; color: #fff; }
+.cover-inner .gig-rule { background: rgba(255, 255, 255, 0.5); width: 96px; }
+.cover-inner .eyebrow { color: rgba(255, 255, 255, 0.82); }
 .cover-title {
-  position: absolute;
-  top: 178px;
-  left: var(--pg-indent);
-  color: var(--gig-paper);
-  text-shadow: 0 1px 14px rgba(9, 52, 61, 0.45);
+  font-family: var(--font-display); font-size: 38px; font-weight: var(--fw-light);
+  letter-spacing: var(--tr-caps); text-transform: uppercase;
+  line-height: var(--lh-tight); margin: 12px 0; color: #fff;
 }
-.cover-title__eyebrow {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.22em;
-  text-transform: uppercase; margin-bottom: 10px;
+.cover-title b { font-weight: var(--fw-semibold); }
+.cover-sub { font-size: 11px; line-height: 1.55; color: rgba(255, 255, 255, 0.88); margin-top: 14px; }
+.cover-stamp {
+  position: absolute; left: var(--pg-margin); bottom: 52px; width: 560px;
+  font-family: var(--font-display); font-size: 7.5px;
+  letter-spacing: var(--tr-caps-wide); text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72); line-height: 1.9;
 }
-.cover-title__name { font-size: 44px; font-weight: 300; line-height: 1.08; }
-.cover-title__name b { font-weight: 600; }
+.cover-logo { position: absolute; left: var(--pg-margin); top: 58px; height: 30px; }
 
-.contact-band { position: absolute; left: 0; bottom: 0; width: var(--pg-w); height: 176px; }
-.contact-inner {
-  position: absolute; left: var(--pg-indent); bottom: 42px;
-  font-size: 10.5px; line-height: 1.65; color: var(--gig-petrol);
+.imprint {
+  background: var(--gig-teal-900); color: #fff;
+  padding: 20px 24px;
 }
-.contact-inner .name { font-weight: 600; font-size: 11.5px; }
-.contact-inner .line { margin-top: 9px; }
-.contact-inner .line b { font-weight: 600; margin-right: 5px; }
-.contact-inner .dot { color: var(--gig-band-deep); margin: 0 9px; }
+.imprint .eyebrow { color: rgba(255, 255, 255, 0.7); }
+.imprint p { color: rgba(255, 255, 255, 0.9); font-size: 9px; line-height: 1.6; }
+.imprint b { font-family: var(--font-display); font-weight: var(--fw-semibold); color: #fff; }
 
-/* --- Bildschirmhilfe (wird beim Export nicht mitgenommen) ---------------- */
 @media print {
   body { background: #fff; }
   .slide { margin: 0; page-break-after: always; }
