@@ -243,11 +243,14 @@ ul.dashed li { position: relative; padding-left: 14px; margin-bottom: 6px; }
   font-weight: var(--fw-semibold); color: var(--brand-strong); margin-top: 2px;
 }
 .node__meta { font-size: 8.5px; color: var(--text-body); margin-top: 1px; }
-.connector {
-  display: flex; justify-content: center; gap: 15px; height: 22px;
-  font-family: var(--font-display); font-size: 14px; color: var(--brand);
-  line-height: 1.2;
-}
+/* Pfeile als Form, nicht als Zeichen: die Pfeilglyphen fehlen im
+   Jost-Subset und lösten im PDF einen Fallback auf DejaVu aus. */
+.connector { display: flex; justify-content: center; gap: 17px; height: 22px; }
+.conn { display: flex; flex-direction: column; align-items: center; }
+.conn__stem { width: 1px; height: 15px; background: var(--brand); }
+.conn__head { width: 9px; height: 6px; background: var(--brand); }
+.conn__head--down { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.conn__head--up   { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 
 /* --- Abbildungen --------------------------------------------------------- */
 
@@ -297,7 +300,17 @@ ul.dashed li { position: relative; padding-left: 14px; margin-bottom: 6px; }
 .imprint p { color: rgba(255, 255, 255, 0.9); font-size: 9px; line-height: 1.6; }
 .imprint b { font-family: var(--font-display); font-weight: var(--fw-semibold); color: #fff; }
 
+/* --- Druck: exakt A4, randlos, keine Leerseite am Ende ------------------- */
+@page { size: 210mm 297mm; margin: 0; }
+
 @media print {
   body { background: #fff; }
-  .slide { margin: 0; page-break-after: always; }
+  .slide {
+    margin: 0;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
 }
